@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Book } from '@/types/book'
+import { useFavoriteStore } from '@/lib/favoriteStore'
 
 interface BookCardProps {
   book: Book
@@ -7,8 +8,15 @@ interface BookCardProps {
 
 export default function BookCard({ book }: BookCardProps) {
   const [expanded, setExpanded] = useState(false)
+  const { isFavorite, addFavorite, removeFavorite } = useFavoriteStore()
+  const favorited = isFavorite(book.isbn)
 
   const price = book.sale_price > 0 ? book.sale_price : book.price
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    favorited ? removeFavorite(book.isbn) : addFavorite(book)
+  }
 
   if (expanded) {
     return (
@@ -20,9 +28,8 @@ export default function BookCard({ book }: BookCardProps) {
               <img src={book.thumbnail} alt={book.title} className="w-full h-full object-cover" />
             ) : null}
           </div>
-          {/* 찜하기 하트 */}
-          <button className="absolute top-2 right-2">
-            <HeartIcon filled={false} />
+          <button onClick={toggleFavorite} className="absolute top-2 right-2">
+            <HeartIcon filled={favorited} />
           </button>
         </div>
 
@@ -38,7 +45,6 @@ export default function BookCard({ book }: BookCardProps) {
                   {book.authors.join(', ')}
                 </span>
               </div>
-
               {book.contents && (
                 <div className="mt-[16px]">
                   <p className="text-[14px] font-bold text-text-primary mb-[8px]">책 소개</p>
@@ -48,8 +54,6 @@ export default function BookCard({ book }: BookCardProps) {
                 </div>
               )}
             </div>
-
-            {/* 상세보기 버튼 */}
             <button
               onClick={() => setExpanded(false)}
               className="flex shrink-0 items-center gap-1 rounded-md border border-gray px-[16px] py-[10px] text-[13px] text-text-secondary hover:border-primary hover:text-primary transition-colors"
