@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import SearchBar from '@/components/SearchBar/SearchBar'
 import BookList from '@/components/BookList/BookList'
 import EmptyState from '@/components/EmptyState/EmptyState'
+import { useSearchHistory } from '@/hooks/useSearchHistory'
 import { MOCK_BOOKS } from '@/mocks/books'
 import type { Book } from '@/types/book'
 
@@ -14,9 +15,13 @@ export const Route = createFileRoute('/')({
 function SearchPage() {
   const [query, setQuery] = useState('')
   const [books] = useState<Book[]>(MOCK_BOOKS)
+  const { history, addHistory, removeHistory } = useSearchHistory()
 
-  const handleSearch = () => {
-    console.log('검색:', query)
+  const handleSearch = (q?: string) => {
+    const searchQuery = q ?? query
+    if (!searchQuery.trim()) return
+    addHistory(searchQuery)
+    console.log('검색:', searchQuery)
   }
 
   return (
@@ -25,7 +30,13 @@ function SearchPage() {
         도서 검색
       </h1>
 
-      <SearchBar value={query} onChange={setQuery} onSearch={handleSearch} />
+      <SearchBar
+        value={query}
+        onChange={setQuery}
+        onSearch={handleSearch}
+        history={history}
+        onRemoveHistory={removeHistory}
+      />
 
       <p className="mt-[20px] mb-[8px] text-[14px] text-text-secondary">
         도서 검색 결과&nbsp;&nbsp;총{' '}
