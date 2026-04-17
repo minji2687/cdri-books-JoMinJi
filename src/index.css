@@ -1,3 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Noto Sans KR', sans-serif;
+
+  /* Palette */
+  --color-primary: #4780ed;
+  --color-red: #e84119;
+  --color-gray: #dadada;
+  --color-light-gray: #f2f4f6;
+  --color-black: #222222;
+
+  /* Text */
+  --color-text-primary: #353c49;
+  --color-text-secondary: #6e7582;
+  --color-text-subtitle: #8d94a0;
+}
+
+* {
+  box-sizing: border-box;
+  /* margin: 0; */
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
