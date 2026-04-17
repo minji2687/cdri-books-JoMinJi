@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
+import DetailSearchPopup from '@/components/DetailSearchPopup/DetailSearchPopup'
+import type { SearchTarget } from '@/components/DetailSearchPopup/DetailSearchPopup'
 
 interface SearchBarProps {
   value: string
   onChange: (value: string) => void
   onSearch: (query?: string) => void
-  onDetailSearch?: () => void
+  onDetailSearch?: (target: SearchTarget, query: string) => void
   history?: string[]
   onRemoveHistory?: (query: string) => void
 }
@@ -18,6 +20,7 @@ export default function SearchBar({
   onRemoveHistory,
 }: SearchBarProps) {
   const [focused, setFocused] = useState(false)
+  const [detailOpen, setDetailOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const showDropdown = focused && history.length > 0
@@ -99,13 +102,25 @@ export default function SearchBar({
         </ul>
       )}
 
-      {/* 상세검색 버튼 */}
-      <button
-        onClick={onDetailSearch}
-        className="h-[34px] rounded-md border border-gray bg-white px-[16px] text-[12px] text-text-secondary hover:border-primary hover:text-primary transition-colors"
-      >
-        상세검색
-      </button>
+      {/* 상세검색 버튼 + 팝업 */}
+      <div className="relative">
+        <button
+          onClick={() => setDetailOpen((v) => !v)}
+          className="h-[34px] rounded-md border border-gray bg-white px-[16px] text-[12px] text-text-secondary hover:border-primary hover:text-primary transition-colors"
+        >
+          상세검색
+        </button>
+
+        {detailOpen && (
+          <DetailSearchPopup
+            onClose={() => setDetailOpen(false)}
+            onSearch={(target, query) => {
+              setDetailOpen(false)
+              onDetailSearch?.(target, query)
+            }}
+          />
+        )}
+      </div>
     </div>
   )
 }
