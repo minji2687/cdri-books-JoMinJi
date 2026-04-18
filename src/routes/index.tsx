@@ -12,16 +12,21 @@ export const Route = createFileRoute('/')({
   component: SearchPage,
 })
 
+const PAGE_SIZE = 10
+
 function SearchPage() {
   const [query, setQuery] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [target, setTarget] = useState<SearchTarget>('title')
+  const [detailTarget, setDetailTarget] = useState<SearchTarget>('title')
+  const [detailQuery, setDetailQuery] = useState('')
   const { history, addHistory, removeHistory } = useSearchHistory()
 
   const { data, isLoading, isError, error } = useSearchBooks({
     query: searchQuery,
     target,
-    size: 50,
+    page: 1,
+    size: PAGE_SIZE,
   })
 
   const books = data?.documents ?? []
@@ -31,12 +36,15 @@ function SearchPage() {
     const searchTerm = q ?? query
     if (!searchTerm.trim()) return
     addHistory(searchTerm)
+    setTarget('title')
+    setDetailTarget('title')
+    setDetailQuery('')
     setSearchQuery(searchTerm)
   }
 
   const handleDetailSearch = (searchTarget: SearchTarget, searchTerm: string) => {
     setTarget(searchTarget)
-    setQuery(searchTerm)
+    setQuery('')
     addHistory(searchTerm)
     setSearchQuery(searchTerm)
   }
@@ -51,6 +59,10 @@ function SearchPage() {
         value={query}
         onChange={setQuery}
         onSearch={handleSearch}
+        detailTarget={detailTarget}
+        detailQuery={detailQuery}
+        onDetailTargetChange={setDetailTarget}
+        onDetailQueryChange={setDetailQuery}
         onDetailSearch={handleDetailSearch}
         history={history}
         onRemoveHistory={removeHistory}

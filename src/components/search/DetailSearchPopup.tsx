@@ -12,13 +12,22 @@ const SEARCH_OPTIONS: { value: SearchTarget; label: string }[] = [
 ]
 
 interface DetailSearchPopupProps {
+  target: SearchTarget
+  query: string
+  onTargetChange: (target: SearchTarget) => void
+  onQueryChange: (query: string) => void
   onClose: () => void
   onSearch: (target: SearchTarget, query: string) => void
 }
 
-export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPopupProps) {
-  const [target, setTarget] = useState<SearchTarget>('title')
-  const [query, setQuery] = useState('')
+export default function DetailSearchPopup({
+  target,
+  query,
+  onTargetChange,
+  onQueryChange,
+  onClose,
+  onSearch,
+}: DetailSearchPopupProps) {
   const [selectOpen, setSelectOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 
@@ -72,7 +81,7 @@ export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPop
                 <li
                   key={opt.value}
                   onClick={() => {
-                    setTarget(opt.value)
+                    onTargetChange(opt.value)
                     setSelectOpen(false)
                   }}
                   className={[
@@ -90,7 +99,7 @@ export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPop
         {/* 입력 */}
         <Input
           value={query}
-          onChange={setQuery}
+          onChange={onQueryChange}
           onEnter={handleSearch}
           placeholder="검색어 입력"
           variant="underline"

@@ -8,6 +8,10 @@ interface SearchBarProps {
   value: string
   onChange: (value: string) => void
   onSearch: (query?: string) => void
+  detailTarget: SearchTarget
+  detailQuery: string
+  onDetailTargetChange: (target: SearchTarget) => void
+  onDetailQueryChange: (query: string) => void
   onDetailSearch?: (target: SearchTarget, query: string) => void
   history?: string[]
   onRemoveHistory?: (query: string) => void
@@ -17,6 +21,10 @@ export default function SearchBar({
   value,
   onChange,
   onSearch,
+  detailTarget,
+  detailQuery,
+  onDetailTargetChange,
+  onDetailQueryChange,
   onDetailSearch,
   history = [],
   onRemoveHistory,
@@ -69,7 +77,13 @@ export default function SearchBar({
         />
       )}
 
-      <DetailSearchButton onSearch={onDetailSearch} />
+      <DetailSearchButton
+        target={detailTarget}
+        query={detailQuery}
+        onTargetChange={onDetailTargetChange}
+        onQueryChange={onDetailQueryChange}
+        onSearch={onDetailSearch}
+      />
     </div>
   )
 }
