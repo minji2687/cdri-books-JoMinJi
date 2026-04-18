@@ -5,8 +5,8 @@ import SearchBar from '@/components/search/SearchBar'
 import BookList from '@/components/book/BookList'
 import EmptyState from '@/components/layout/EmptyState'
 import { useSearchHistory } from '@/hooks/useSearchHistory'
-import { MOCK_BOOKS } from '@/mocks/books'
-import type { Book } from '@/types/book'
+import { useSearchBooks } from '@/api/books/hooks'
+import type { SearchTarget } from '@/components/search/DetailSearchPopup'
 
 export const Route = createFileRoute('/')({
   component: SearchPage,
@@ -14,14 +14,31 @@ export const Route = createFileRoute('/')({
 
 function SearchPage() {
   const [query, setQuery] = useState('')
-  const [books] = useState<Book[]>(MOCK_BOOKS)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [target, setTarget] = useState<SearchTarget>('title')
   const { history, addHistory, removeHistory } = useSearchHistory()
 
+  const { data, isLoading, isError, error } = useSearchBooks({
+    query: searchQuery,
+    target,
+    size: 50,
+  })
+
+  const books = data?.documents ?? []
+  const totalCount = data?.meta.total_count ?? 0
+
   const handleSearch = (q?: string) => {
-    const searchQuery = q ?? query
-    if (!searchQuery.trim()) return
-    addHistory(searchQuery)
-    console.log('검색:', searchQuery)
+    const searchTerm = q ?? query
+    if (!searchTerm.trim()) return
+    addHistory(searchTerm)
+    setSearchQuery(searchTerm)
+  }
+
+  const handleDetailSearch = (searchTarget: SearchTarget, searchTerm: string) => {
+    setTarget(searchTarget)
+    setQuery(searchTerm)
+    addHistory(searchTerm)
+    setSearchQuery(searchTerm)
   }
 
   return (
@@ -34,19 +51,36 @@ function SearchPage() {
         value={query}
         onChange={setQuery}
         onSearch={handleSearch}
+        onDetailSearch={handleDetailSearch}
         history={history}
         onRemoveHistory={removeHistory}
       />
 
-      <p className="mt-[20px] mb-[8px] text-[14px] text-text-secondary">
-        도서 검색 결과&nbsp;&nbsp;총{' '}
-        <span className="text-primary font-medium">{books.length}</span>건
-      </p>
+      {isLoading && (
+        <div className="text-center py-[40px] text-[14px] text-text-secondary">
+          검색 중...
+        </div>
+      )}
 
-      {books.length > 0 ? (
-        <BookList books={books} />
-      ) : (
-        <EmptyState />
+      {isError && (
+        <div className="text-center py-[40px] text-[14px] text-red-500">
+          에러 발생: {error instanceof Error ? error.message : '알 수 없는 오류'}
+        </div>
+      )}
+
+      {!isLoading && !isError && (
+        <>
+          <p className="mt-[20px] mb-[8px] text-[14px] text-text-secondary">
+            도서 검색 결과&nbsp;&nbsp;총{' '}
+            <span className="text-primary font-medium">{totalCount}</span>건
+          </p>
+
+          {books.length > 0 ? (
+            <BookList books={books} />
+          ) : (
+            searchQuery && <EmptyState />
+          )}
+        </>
       )}
     </main>
   )
