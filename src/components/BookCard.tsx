@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo } from 'react'
 import type { Book } from '@/types/book'
 import { useFavoriteStore } from '@/lib/favoriteStore'
 import { ChevronIcon, HeartIcon } from './icons'
+import Button from './Button'
 
 interface BookCardProps {
   book: Book
@@ -61,12 +62,14 @@ export default function BookCard({ book }: BookCardProps) {
                 </div>
               )}
             </div>
-            <button
+            <Button
+              variant="outline"
+              size="md"
               onClick={() => setExpanded(false)}
-              className="flex shrink-0 items-center gap-1 rounded-md border border-gray px-[16px] py-[10px] text-[13px] text-text-secondary hover:border-primary hover:text-primary transition-colors"
+              className="shrink-0"
             >
               상세보기 <ChevronIcon up />
-            </button>
+            </Button>
           </div>
 
           {/* 가격 + 구매하기 */}
@@ -81,9 +84,9 @@ export default function BookCard({ book }: BookCardProps) {
                 할인가 {price.toLocaleString()}원
               </span>
             </div>
-            <button className="w-full rounded-md bg-primary py-[14px] text-[14px] font-medium text-white hover:opacity-90 transition-opacity">
+            <Button variant="primary" size="lg" fullWidth>
               구매하기
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -116,15 +119,16 @@ export default function BookCard({ book }: BookCardProps) {
 
       {/* 버튼 */}
       <div className="flex shrink-0 items-center gap-[8px]">
-        <button className="rounded-md bg-primary px-[20px] py-[10px] text-[13px] font-medium text-white hover:opacity-90 transition-opacity">
+        <Button variant="primary" size="md">
           구매하기
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="outline"
+          size="md"
           onClick={() => setExpanded(true)}
-          className="flex items-center gap-1 rounded-md border border-gray px-[16px] py-[10px] text-[13px] text-text-secondary hover:border-primary hover:text-primary transition-colors"
         >
           상세보기 <ChevronIcon up={false} />
-        </button>
+        </Button>
       </div>
     </div>
   )

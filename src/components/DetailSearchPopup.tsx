@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { ChevronIcon, CloseIcon } from './icons'
+import Button from './Button'
 
 export type SearchTarget = 'title' | 'person' | 'publisher'
 
@@ -99,12 +100,14 @@ export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPop
       </div>
 
       {/* 검색하기 버튼 */}
-      <button
+      <Button
+        variant="primary"
+        size="md"
+        fullWidth
         onClick={handleSearch}
-        className="w-full rounded-[8px] bg-primary py-[12px] text-[14px] font-medium text-white hover:opacity-90 transition-opacity"
       >
         검색하기
-      </button>
+      </Button>
     </div>
   )
 }
