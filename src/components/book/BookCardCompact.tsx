@@ -1,21 +1,34 @@
 import type { Book } from '@/types/book'
-import { ChevronIcon } from '../ui/icons'
+import { ChevronIcon, HeartIcon } from '../ui/icons'
 import Button from '../ui/Button'
 
 interface BookCardCompactProps {
   book: Book
   price: number
+  favorited: boolean
   onExpand: () => void
+  onToggleFavorite: (e: React.MouseEvent) => void
 }
 
-export default function BookCardCompact({ book, price, onExpand }: BookCardCompactProps) {
+export default function BookCardCompact({
+  book,
+  price,
+  favorited,
+  onExpand,
+  onToggleFavorite,
+}: BookCardCompactProps) {
   return (
     <div className="flex items-center gap-[20px] py-[20px] border-b border-gray">
       {/* 썸네일 */}
-      <div className="w-[60px] h-[80px] shrink-0 bg-light-gray rounded-sm overflow-hidden">
-        {book.thumbnail ? (
-          <img src={book.thumbnail} alt={book.title} className="w-full h-full object-cover" />
-        ) : null}
+      <div className="relative shrink-0">
+        <div className="w-[60px] h-[80px] bg-light-gray rounded-sm overflow-hidden">
+          {book.thumbnail ? (
+            <img src={book.thumbnail} alt={book.title} className="w-full h-full object-cover" />
+          ) : null}
+        </div>
+        <button onClick={onToggleFavorite} className="absolute top-1 right-1">
+          <HeartIcon filled={favorited} />
+        </button>
       </div>
 
       {/* 제목 + 저자 */}

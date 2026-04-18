@@ -38,5 +38,13 @@ export default function BookCard({ book }: BookCardProps) {
     )
   }
 
-  return <BookCardCompact book={book} price={price} onExpand={() => setExpanded(true)} />
+  return (
+    <BookCardCompact
+      book={book}
+      price={price}
+      favorited={favorited}
+      onExpand={() => setExpanded(true)}
+      onToggleFavorite={toggleFavorite}
+    />
+  )
 }
