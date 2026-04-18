@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import DetailSearchPopup from '@/components/DetailSearchPopup/DetailSearchPopup'
-import type { SearchTarget } from '@/components/DetailSearchPopup/DetailSearchPopup'
+import DetailSearchPopup from '@/components/DetailSearchPopup'
+import type { SearchTarget } from '@/components/DetailSearchPopup'
 
 interface SearchBarProps {
   value: string

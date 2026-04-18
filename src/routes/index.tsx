@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import SearchBar from '@/components/SearchBar/SearchBar'
-import BookList from '@/components/BookList/BookList'
-import EmptyState from '@/components/EmptyState/EmptyState'
+import SearchBar from '@/components/SearchBar'
+import BookList from '@/components/BookList'
+import EmptyState from '@/components/EmptyState'
 import { useSearchHistory } from '@/hooks/useSearchHistory'
 import { MOCK_BOOKS } from '@/mocks/books'
 import type { Book } from '@/types/book'
