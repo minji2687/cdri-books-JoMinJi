@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { ChevronIcon, CloseIcon } from './icons'
 
 export type SearchTarget = 'title' | 'person' | 'publisher'
@@ -20,24 +20,27 @@ export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPop
   const [selectOpen, setSelectOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 
-  // 셀렉트 외부 클릭 시 닫기
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
-        setSelectOpen(false)
-      }
+  const handleClick = useCallback((e: MouseEvent) => {
+    if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+      setSelectOpen(false)
     }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  const handleSearch = () => {
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [handleClick])
+
+  const handleSearch = useCallback(() => {
     if (!query.trim()) return
     onSearch(target, query)
     onClose()
-  }
+  }, [query, target, onSearch, onClose])
 
-  const selectedLabel = SEARCH_OPTIONS.find((o) => o.value === target)?.label ?? '제목'
+  const selectedLabel = useMemo(
+    () => SEARCH_OPTIONS.find((o) => o.value === target)?.label ?? '제목',
+    [target]
+  )
 
   return (
     <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[300px] rounded-[12px] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] p-[24px]">
