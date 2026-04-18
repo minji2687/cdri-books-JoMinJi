@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { ChevronIcon, CloseIcon } from './icons'
 import Button from './Button'
+import Input from './Input'
 
 export type SearchTarget = 'title' | 'person' | 'publisher'
 
@@ -87,16 +88,15 @@ export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPop
         </div>
 
         {/* 입력 */}
-        <div className="flex-1 border-b border-text-primary pb-[4px]">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            placeholder="검색어 입력"
-            className="w-full text-[13px] text-text-primary placeholder:text-text-subtitle outline-none bg-transparent"
-          />
-        </div>
+        <Input
+          value={query}
+          onChange={setQuery}
+          onEnter={handleSearch}
+          placeholder="검색어 입력"
+          variant="underline"
+          inputSize="sm"
+          className="flex-1"
+        />
       </div>
 
       {/* 검색하기 버튼 */}
