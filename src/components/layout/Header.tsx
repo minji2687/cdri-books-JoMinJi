@@ -26,10 +26,10 @@ export default function Header() {
                 key={to}
                 to={to}
                 className={[
-                  'text-[20px] font-medium leading-[20px] transition-colors',
+                  'text-[20px] font-medium leading-[20px] transition-colors pb-2 border-b',
                   isActive
-                    ? 'text-text-primary border-b-2 border-primary pb-1'
-                    : 'text-text-secondary hover:text-text-primary',
+                    ? 'text-text-primary border-primary'
+                    : 'text-text-secondary border-transparent hover:text-text-primary',
                 ].join(' ')}
               >
                 {label}

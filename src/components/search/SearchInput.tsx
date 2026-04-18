@@ -15,7 +15,7 @@ export default function SearchInput({
   onChange,
   onSearch,
   onFocus,
-  placeholder = '검색어를 입력하세요',
+  placeholder = '검색어 입력',
   hasDropdown = false,
 }: SearchInputProps) {
   return (
