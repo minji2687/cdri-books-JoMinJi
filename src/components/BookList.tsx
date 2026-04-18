@@ -8,8 +8,8 @@ interface BookListProps {
 export default function BookList({ books }: BookListProps) {
   return (
     <div className="w-full">
-      {books.map((book, index) => (
-        <BookCard key={`${book.isbn}-${index}`} book={book} />
+      {books.map((book) => (
+        <BookCard key={book.isbn} book={book} />
       ))}
     </div>
   )

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import type { Book } from '@/types/book'
 import { useFavoriteStore } from '@/lib/favoriteStore'
+import { ChevronIcon, HeartIcon } from './icons'
 
 interface BookCardProps {
   book: Book
@@ -11,12 +12,18 @@ export default function BookCard({ book }: BookCardProps) {
   const { isFavorite, addFavorite, removeFavorite } = useFavoriteStore()
   const favorited = isFavorite(book.isbn)
 
-  const price = book.sale_price > 0 ? book.sale_price : book.price
+  const price = useMemo(
+    () => (book.sale_price > 0 ? book.sale_price : book.price),
+    [book.sale_price, book.price]
+  )
 
-  const toggleFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    favorited ? removeFavorite(book.isbn) : addFavorite(book)
-  }
+  const toggleFavorite = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      favorited ? removeFavorite(book.isbn) : addFavorite(book)
+    },
+    [favorited, book.isbn, addFavorite, removeFavorite]
+  )
 
   if (expanded) {
     return (
@@ -120,32 +127,5 @@ export default function BookCard({ book }: BookCardProps) {
         </button>
       </div>
     </div>
-  )
-}
-
-function ChevronIcon({ up }: { up: boolean }) {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-      <path
-        d={up ? 'M2 8L6 4L10 8' : 'M2 4L6 8L10 4'}
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function HeartIcon({ filled }: { filled: boolean }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 21C12 21 3 14.5 3 8.5C3 6.01 5.01 4 7.5 4C9.24 4 10.91 4.97 12 6.5C13.09 4.97 14.76 4 16.5 4C18.99 4 21 6.01 21 8.5C21 14.5 12 21 12 21Z"
-        fill={filled ? '#E84119' : 'none'}
-        stroke={filled ? '#E84119' : 'white'}
-        strokeWidth="1.5"
-      />
-    </svg>
   )
 }

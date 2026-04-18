@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import DetailSearchPopup from '@/components/DetailSearchPopup'
 import type { SearchTarget } from '@/components/DetailSearchPopup'
+import { SearchIcon, CloseIcon } from './icons'
 
 interface SearchBarProps {
   value: string
@@ -25,29 +26,35 @@ export default function SearchBar({
 
   const showDropdown = focused && history.length > 0
 
-  // 외부 클릭 시 드롭다운 닫기
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setFocused(false)
-      }
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      setFocused(false)
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      setFocused(false)
-      onSearch()
-    }
-  }
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [handleClickOutside])
 
-  const handleHistoryClick = (query: string) => {
-    onChange(query)
-    setFocused(false)
-    onSearch(query)
-  }
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        setFocused(false)
+        onSearch()
+      }
+    },
+    [onSearch]
+  )
+
+  const handleHistoryClick = useCallback(
+    (query: string) => {
+      onChange(query)
+      setFocused(false)
+      onSearch(query)
+    },
+    [onChange, onSearch]
+  )
 
   return (
     <div ref={containerRef} className="relative flex items-center gap-3">
@@ -122,22 +129,5 @@ export default function SearchBar({
         )}
       </div>
     </div>
-  )
-}
-
-function SearchIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <circle cx="7.5" cy="7.5" r="5.5" stroke="#8D94A0" strokeWidth="1.5" />
-      <path d="M12 12L16 16" stroke="#8D94A0" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function CloseIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M2 2L12 12M12 2L2 12" stroke="#8D94A0" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
   )
 }

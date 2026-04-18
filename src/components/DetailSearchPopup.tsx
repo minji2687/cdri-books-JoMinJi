@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { ChevronIcon, CloseIcon } from './icons'
 
 export type SearchTarget = 'title' | 'person' | 'publisher'
 
@@ -102,32 +103,5 @@ export default function DetailSearchPopup({ onClose, onSearch }: DetailSearchPop
         검색하기
       </button>
     </div>
-  )
-}
-
-function ChevronIcon({ up }: { up: boolean }) {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-      <path
-        d={up ? 'M2 8L6 4L10 8' : 'M2 4L6 8L10 4'}
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function CloseIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path
-        d="M2 2L12 12M12 2L2 12"
-        stroke="#8D94A0"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
   )
 }
