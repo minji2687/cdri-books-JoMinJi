@@ -11,9 +11,9 @@ export function ChevronIcon({ up }: { up: boolean }) {
   )
 }
 
-export function CloseIcon() {
+export function CloseIcon({ size = 20 }: { size?: number } = {}) {
   return (
-    <svg width="14" height="14">
+    <svg width={size} height={size}>
       <use href="/icons.svg#close-icon" />
     </svg>
   )

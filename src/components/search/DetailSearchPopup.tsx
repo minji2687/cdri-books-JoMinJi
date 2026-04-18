@@ -54,29 +54,29 @@ export default function DetailSearchPopup({
   )
 
   return (
-    <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[300px] rounded-[12px] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)] p-[24px]">
+    <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[360px] rounded-[8px] bg-white shadow-lg px-[24px] py-[36px]">
       {/* 닫기 버튼 */}
       <button
         onClick={onClose}
-        className="absolute right-[16px] top-[16px] text-text-subtitle hover:text-text-primary"
+        className="absolute right-[16px] top-[16px] text-[#BDBDBD] hover:text-text-secondary transition-colors"
       >
-        <CloseIcon />
+        <CloseIcon size={16} />
       </button>
 
       {/* 검색 조건 + 입력 */}
-      <div className="flex items-end gap-[12px] mb-[16px]">
+      <div className="flex items-center gap-[12px] mb-[16px]">
         {/* 셀렉트 */}
         <div ref={selectRef} className="relative">
           <button
             onClick={() => setSelectOpen((v) => !v)}
-            className="flex items-center gap-[6px] text-[14px] font-medium text-text-primary"
+            className="flex items-center gap-[4px] text-[14px] text-[#757575] min-w-[60px]"
           >
             {selectedLabel}
             <ChevronIcon up={selectOpen} />
           </button>
 
           {selectOpen && (
-            <ul className="absolute left-0 top-[calc(100%+4px)] w-[100px] rounded-[8px] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] overflow-hidden z-10">
+            <ul className="absolute left-0 top-[calc(100%+4px)] w-[100px] rounded-[6px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] overflow-hidden z-10 border border-gray-200">
               {SEARCH_OPTIONS.map((opt) => (
                 <li
                   key={opt.value}
@@ -85,8 +85,8 @@ export default function DetailSearchPopup({
                     setSelectOpen(false)
                   }}
                   className={[
-                    'px-[16px] py-[10px] text-[13px] cursor-pointer hover:bg-light-gray',
-                    target === opt.value ? 'text-primary font-medium' : 'text-text-secondary',
+                    'px-[16px] py-[8px] text-[13px] cursor-pointer hover:bg-[#F5F5F5] transition-colors',
+                    target === opt.value ? 'text-primary font-medium' : 'text-[#757575]',
                   ].join(' ')}
                 >
                   {opt.label}
@@ -97,26 +97,29 @@ export default function DetailSearchPopup({
         </div>
 
         {/* 입력 */}
-        <Input
-          value={query}
-          onChange={onQueryChange}
-          onEnter={handleSearch}
-          placeholder="검색어 입력"
-          variant="underline"
-          inputSize="sm"
-          className="flex-1"
-        />
+        <div className="flex-1">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => onQueryChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearch()
+              }
+            }}
+            placeholder="검색어 입력"
+            className="w-full text-[14px] text-text-primary placeholder:text-[#BDBDBD] pb-[6px] border-b-2 border-primary focus:outline-none"
+          />
+        </div>
       </div>
 
       {/* 검색하기 버튼 */}
-      <Button
-        variant="primary"
-        size="md"
-        fullWidth
+      <button
         onClick={handleSearch}
+        className="w-full h-[44px] bg-primary text-white text-[15px] font-medium rounded-[8px] hover:bg-[#4A90E2] transition-colors"
       >
         검색하기
-      </Button>
+      </button>
     </div>
   )
 }
