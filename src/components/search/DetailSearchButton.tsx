@@ -5,17 +5,17 @@ import Button from '../ui/Button'
 
 interface DetailSearchButtonProps {
   target: SearchTarget
-  query: string
+  inputValue: string
   onTargetChange: (target: SearchTarget) => void
-  onQueryChange: (query: string) => void
-  onSearch?: (target: SearchTarget, query: string) => void
+  onInputChange: (value: string) => void
+  onSearch?: (target: SearchTarget, keyword: string) => void
 }
 
 export default function DetailSearchButton({
   target,
-  query,
+  inputValue,
   onTargetChange,
-  onQueryChange,
+  onInputChange,
   onSearch,
 }: DetailSearchButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,13 +33,13 @@ export default function DetailSearchButton({
       {isOpen && (
         <DetailSearchPopup
           target={target}
-          query={query}
+          inputValue={inputValue}
           onTargetChange={onTargetChange}
-          onQueryChange={onQueryChange}
+          onInputChange={onInputChange}
           onClose={() => setIsOpen(false)}
-          onSearch={(target, query) => {
+          onSearch={(target, keyword) => {
             setIsOpen(false)
-            onSearch?.(target, query)
+            onSearch?.(target, keyword)
           }}
         />
       )}

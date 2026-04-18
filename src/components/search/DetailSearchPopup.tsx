@@ -13,18 +13,18 @@ const SEARCH_OPTIONS: { value: SearchTarget; label: string }[] = [
 
 interface DetailSearchPopupProps {
   target: SearchTarget
-  query: string
+  inputValue: string
   onTargetChange: (target: SearchTarget) => void
-  onQueryChange: (query: string) => void
+  onInputChange: (value: string) => void
   onClose: () => void
-  onSearch: (target: SearchTarget, query: string) => void
+  onSearch: (target: SearchTarget, keyword: string) => void
 }
 
 export default function DetailSearchPopup({
   target,
-  query,
+  inputValue,
   onTargetChange,
-  onQueryChange,
+  onInputChange,
   onClose,
   onSearch,
 }: DetailSearchPopupProps) {
@@ -43,10 +43,10 @@ export default function DetailSearchPopup({
   }, [handleClick])
 
   const handleSearch = useCallback(() => {
-    if (!query.trim()) return
-    onSearch(target, query)
+    if (!inputValue.trim()) return
+    onSearch(target, inputValue)
     onClose()
-  }, [query, target, onSearch, onClose])
+  }, [inputValue, target, onSearch, onClose])
 
   const selectedLabel = useMemo(
     () => SEARCH_OPTIONS.find((o) => o.value === target)?.label ?? '제목',
@@ -100,8 +100,8 @@ export default function DetailSearchPopup({
         <div className="flex-1">
           <input
             type="text"
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
+            value={inputValue}
+            onChange={(e) => onInputChange(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSearch()

@@ -15,16 +15,16 @@ export const Route = createFileRoute('/')({
 const PAGE_SIZE = 10
 
 function SearchPage() {
-  const [query, setQuery] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [target, setTarget] = useState<SearchTarget>('title')
+  const [inputValue, setInputValue] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchTarget, setSearchTarget] = useState<SearchTarget>('title')
   const [detailTarget, setDetailTarget] = useState<SearchTarget>('title')
-  const [detailQuery, setDetailQuery] = useState('')
+  const [detailInputValue, setDetailInputValue] = useState('')
   const { history, addHistory, removeHistory } = useSearchHistory()
 
   const { data, isLoading, isError, error } = useSearchBooks({
-    query: searchQuery,
-    target,
+    query: searchKeyword,
+    target: searchTarget,
     page: 1,
     size: PAGE_SIZE,
   })
@@ -33,20 +33,20 @@ function SearchPage() {
   const totalCount = data?.meta.total_count ?? 0
 
   const handleSearch = (q?: string) => {
-    const searchTerm = q ?? query
+    const searchTerm = q ?? inputValue
     if (!searchTerm.trim()) return
     addHistory(searchTerm)
-    setTarget('title')
+    setSearchTarget('title')
     setDetailTarget('title')
-    setDetailQuery('')
-    setSearchQuery(searchTerm)
+    setDetailInputValue('')
+    setSearchKeyword(searchTerm)
   }
 
-  const handleDetailSearch = (searchTarget: SearchTarget, searchTerm: string) => {
-    setTarget(searchTarget)
-    setQuery('')
+  const handleDetailSearch = (target: SearchTarget, searchTerm: string) => {
+    setSearchTarget(target)
+    setInputValue('')
     addHistory(searchTerm)
-    setSearchQuery(searchTerm)
+    setSearchKeyword(searchTerm)
   }
 
   return (
@@ -56,13 +56,13 @@ function SearchPage() {
       </h1>
 
       <SearchBar
-        value={query}
-        onChange={setQuery}
+        inputValue={inputValue}
+        onInputChange={setInputValue}
         onSearch={handleSearch}
         detailTarget={detailTarget}
-        detailQuery={detailQuery}
+        detailInputValue={detailInputValue}
         onDetailTargetChange={setDetailTarget}
-        onDetailQueryChange={setDetailQuery}
+        onDetailInputChange={setDetailInputValue}
         onDetailSearch={handleDetailSearch}
         history={history}
         onRemoveHistory={removeHistory}
@@ -90,7 +90,7 @@ function SearchPage() {
           {books.length > 0 ? (
             <BookList books={books} />
           ) : (
-            searchQuery && <EmptyState />
+            searchKeyword && <EmptyState />
           )}
         </>
       )}

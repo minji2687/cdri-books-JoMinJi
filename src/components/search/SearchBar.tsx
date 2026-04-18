@@ -5,26 +5,26 @@ import SearchHistory from './SearchHistory'
 import DetailSearchButton from './DetailSearchButton'
 
 interface SearchBarProps {
-  value: string
-  onChange: (value: string) => void
-  onSearch: (query?: string) => void
+  inputValue: string
+  onInputChange: (value: string) => void
+  onSearch: (keyword?: string) => void
   detailTarget: SearchTarget
-  detailQuery: string
+  detailInputValue: string
   onDetailTargetChange: (target: SearchTarget) => void
-  onDetailQueryChange: (query: string) => void
-  onDetailSearch?: (target: SearchTarget, query: string) => void
+  onDetailInputChange: (value: string) => void
+  onDetailSearch?: (target: SearchTarget, keyword: string) => void
   history?: string[]
-  onRemoveHistory?: (query: string) => void
+  onRemoveHistory?: (keyword: string) => void
 }
 
 export default function SearchBar({
-  value,
-  onChange,
+  inputValue,
+  onInputChange,
   onSearch,
   detailTarget,
-  detailQuery,
+  detailInputValue,
   onDetailTargetChange,
-  onDetailQueryChange,
+  onDetailInputChange,
   onDetailSearch,
   history = [],
   onRemoveHistory,
@@ -51,19 +51,19 @@ export default function SearchBar({
   }, [onSearch])
 
   const handleHistorySelect = useCallback(
-    (query: string) => {
-      onChange(query)
+    (keyword: string) => {
+      onInputChange(keyword)
       setFocused(false)
-      onSearch(query)
+      onSearch(keyword)
     },
-    [onChange, onSearch]
+    [onInputChange, onSearch]
   )
 
   return (
     <div ref={containerRef} className="relative flex items-center gap-3">
       <SearchInput
-        value={value}
-        onChange={onChange}
+        value={inputValue}
+        onChange={onInputChange}
         onSearch={handleSearch}
         onFocus={() => setFocused(true)}
         hasDropdown={showDropdown}
@@ -79,9 +79,9 @@ export default function SearchBar({
 
       <DetailSearchButton
         target={detailTarget}
-        query={detailQuery}
+        inputValue={detailInputValue}
         onTargetChange={onDetailTargetChange}
-        onQueryChange={onDetailQueryChange}
+        onInputChange={onDetailInputChange}
         onSearch={onDetailSearch}
       />
     </div>
