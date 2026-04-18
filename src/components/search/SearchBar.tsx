@@ -22,7 +22,6 @@ export default function SearchBar({
   onRemoveHistory,
 }: SearchBarProps) {
   const [focused, setFocused] = useState(false)
-  const [detailOpen, setDetailOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const showDropdown = focused && history.length > 0
