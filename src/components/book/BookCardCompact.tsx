@@ -1,6 +1,6 @@
 import type { Book } from '@/types/book'
-import { ChevronIcon } from './icons'
-import Button from './Button'
+import { ChevronIcon } from '../ui/icons'
+import Button from '../ui/Button'
 
 interface BookCardCompactProps {
   book: Book

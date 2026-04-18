@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createFileRoute } from '@tanstack/react-router'
 import { useFavoriteStore } from '@/lib/favoriteStore'
-import BookList from '@/components/BookList'
-import EmptyState from '@/components/EmptyState'
+import BookList from '@/components/book/BookList'
+import EmptyState from '@/components/layout/EmptyState'
 
 export const Route = createFileRoute('/favorites')({
   component: FavoritesPage,

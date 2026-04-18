@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import DetailSearchPopup from './DetailSearchPopup'
 import type { SearchTarget } from './DetailSearchPopup'
-import Button from './Button'
+import Button from '../ui/Button'
 
 interface DetailSearchButtonProps {
   onSearch?: (target: SearchTarget, query: string) => void

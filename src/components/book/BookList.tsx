@@ -1,5 +1,5 @@
 import type { Book } from '@/types/book'
-import BookCard from '@/components/BookCard'
+import BookCard from './BookCard'
 
 interface BookListProps {
   books: Book[]

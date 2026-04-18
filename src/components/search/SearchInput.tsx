@@ -1,5 +1,5 @@
-import { SearchIcon } from './icons'
-import Input from './Input'
+import { SearchIcon } from '../ui/icons'
+import Input from '../ui/Input'
 
 interface SearchInputProps {
   value: string

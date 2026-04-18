@@ -1,6 +1,6 @@
 import type { Book } from '@/types/book'
-import { ChevronIcon, HeartIcon } from './icons'
-import Button from './Button'
+import { ChevronIcon, HeartIcon } from '../ui/icons'
+import Button from '../ui/Button'
 
 interface BookCardExpandedProps {
   book: Book
