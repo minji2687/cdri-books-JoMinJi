@@ -1,11 +1,12 @@
 import type { Book } from '@/types/book'
-import { ChevronIcon, HeartIcon } from '../ui/icons'
+import { DetailArrowIcon, HeartIcon } from '../ui/icons'
 import Button from '../ui/Button'
 
 interface BookCardCompactProps {
   book: Book
   price: number
   favorited: boolean
+  bookUrl: string
   onExpand: () => void
   onToggleFavorite: (e: React.MouseEvent) => void
 }
@@ -14,6 +15,7 @@ export default function BookCardCompact({
   book,
   price,
   favorited,
+  bookUrl,
   onExpand,
   onToggleFavorite,
 }: BookCardCompactProps) {
@@ -44,11 +46,11 @@ export default function BookCardCompact({
       </span>
 
       <div className="flex shrink-0 items-center gap-[8px]">
-        <Button variant="primary" size="md">
+        <Button variant="primary" size="md" onClick={() => window.open(bookUrl, '_blank')} className="w-[115px] !h-[48px] !rounded-[8px] !px-[20px] !py-[13px] !text-[16px]">
           구매하기
         </Button>
-        <Button variant="outline" size="md" onClick={onExpand}>
-          상세보기 <ChevronIcon up={false} />
+        <Button variant="secondary" size="md" onClick={onExpand} className="!h-[48px] !rounded-[8px] !px-[20px] !py-[13px] !text-[16px] !font-medium !leading-[16px] !tracking-[0] whitespace-nowrap">
+          상세보기 <DetailArrowIcon up={false} />
         </Button>
       </div>
     </div>

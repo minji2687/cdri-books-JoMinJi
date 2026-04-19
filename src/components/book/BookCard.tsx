@@ -32,6 +32,7 @@ export default function BookCard({ book }: BookCardProps) {
         book={book}
         price={price}
         favorited={favorited}
+        bookUrl={book.url}
         onCollapse={() => setExpanded(false)}
         onToggleFavorite={toggleFavorite}
       />
@@ -43,6 +44,7 @@ export default function BookCard({ book }: BookCardProps) {
       book={book}
       price={price}
       favorited={favorited}
+      bookUrl={book.url}
       onExpand={() => setExpanded(true)}
       onToggleFavorite={toggleFavorite}
     />

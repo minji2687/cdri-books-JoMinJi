@@ -82,7 +82,7 @@ function SearchPage() {
         </div>
       )}
 
-      {!isLoading && !isError && (
+      {searchKeyword && !isLoading && !isError && (
         <>
           <p className="mt-[20px] mb-[8px] text-[14px] text-text-secondary">
             도서 검색 결과&nbsp;&nbsp;총{' '}
@@ -92,7 +92,7 @@ function SearchPage() {
           {books.length > 0 ? (
             <BookList books={books} />
           ) : (
-            searchKeyword && <EmptyState />
+            <EmptyState />
           )}
         </>
       )}

@@ -24,6 +24,9 @@
   <symbol id="chevron-icon" viewBox="0 0 12 12">
     <path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M2 8L6 4L10 8"/>
   </symbol>
+  <symbol id="detail-arrow-icon" viewBox="0 0 14 8">
+    <path d="M12 8L7 3L2 8L1.19249e-08 7L7 8.34742e-08L14 7L12 8Z" fill="#B1B8C0"/>
+  </symbol>
   <symbol id="close-icon" viewBox="0 0 14 14">
     <path stroke="#8D94A0" stroke-width="1.5" stroke-linecap="round" d="M2 2L12 12M12 2L2 12"/>
   </symbol>

@@ -27,6 +27,20 @@ export function SearchIcon() {
   )
 }
 
+export function DetailArrowIcon({ up = true }: { up?: boolean }) {
+  return (
+    <svg
+      width="14"
+      height="8"
+      viewBox="0 0 14 8"
+      className={up ? '' : 'rotate-180'}
+      style={{ display: 'inline-block' }}
+    >
+      <use href="/icons.svg#detail-arrow-icon" />
+    </svg>
+  )
+}
+
 export function HeartIcon({ filled }: { filled: boolean }) {
   return (
     <svg

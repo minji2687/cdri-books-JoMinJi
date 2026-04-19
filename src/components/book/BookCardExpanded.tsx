@@ -1,11 +1,12 @@
 import type { Book } from '@/types/book'
-import { ChevronIcon, HeartIcon } from '../ui/icons'
+import { DetailArrowIcon, HeartIcon } from '../ui/icons'
 import Button from '../ui/Button'
 
 interface BookCardExpandedProps {
   book: Book
   price: number
   favorited: boolean
+  bookUrl: string
   onCollapse: () => void
   onToggleFavorite: (e: React.MouseEvent) => void
 }
@@ -14,6 +15,7 @@ export default function BookCardExpanded({
   book,
   price,
   favorited,
+  bookUrl,
   onCollapse,
   onToggleFavorite,
 }: BookCardExpandedProps) {
@@ -51,8 +53,8 @@ export default function BookCardExpanded({
       </div>
 
       <div className="flex flex-col items-end justify-between shrink-0 w-[280px]">
-        <Button variant="outline" size="sm" onClick={onCollapse}>
-          상세보기 <ChevronIcon up />
+        <Button variant="secondary" size="sm" onClick={onCollapse} className="!h-[48px] !rounded-[8px] !px-[20px] !py-[13px] !text-[16px] !font-medium !leading-[16px] !tracking-[0] whitespace-nowrap">
+          상세보기 <DetailArrowIcon />
         </Button>
 
         <div className="flex flex-col items-end w-full">
@@ -71,7 +73,7 @@ export default function BookCardExpanded({
             </span>
           </div>
 
-          <Button variant="primary" size="lg" fullWidth>
+          <Button variant="primary" size="lg" fullWidth onClick={() => window.open(bookUrl, '_blank')}>
             구매하기
           </Button>
         </div>
