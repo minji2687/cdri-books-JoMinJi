@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from 'react'
 import type { Book } from '@/types/book'
-import { useFavoriteStore } from '@/lib/favoriteStore'
+import { useFavoriteStore } from '@/store/favoriteStore'
 import BookCardCompact from './BookCardCompact'
 import BookCardExpanded from './BookCardExpanded'
 

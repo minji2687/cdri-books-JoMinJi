@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createFileRoute } from '@tanstack/react-router'
-import { useFavoriteStore } from '@/lib/favoriteStore'
+import { useFavoriteStore } from '@/store/favoriteStore'
 import BookList from '@/components/book/BookList'
 import EmptyState from '@/components/layout/EmptyState'
 
