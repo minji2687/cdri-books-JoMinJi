@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import DetailSearchPopup from './DetailSearchPopup'
 import type { SearchTarget } from './DetailSearchPopup'
 import Button from '../ui/Button'
@@ -21,6 +22,14 @@ export default function DetailSearchButton({
   isOpen,
   onOpenChange,
 }: DetailSearchButtonProps) {
+  const handleSearch = useCallback(
+    (target: SearchTarget, keyword: string) => {
+      onOpenChange(false)
+      onSearch?.(target, keyword)
+    },
+    [onOpenChange, onSearch]
+  )
+
   return (
     <div className="relative">
       <Button
@@ -38,10 +47,7 @@ export default function DetailSearchButton({
           onTargetChange={onTargetChange}
           onInputChange={onInputChange}
           onClose={() => onOpenChange(false)}
-          onSearch={(target, keyword) => {
-            onOpenChange(false)
-            onSearch?.(target, keyword)
-          }}
+          onSearch={handleSearch}
         />
       )}
     </div>

@@ -60,16 +60,23 @@ export default function SearchBar({
     [onInputChange, onSearch]
   )
 
+  const handleInputFocus = useCallback(() => {
+    setFocused(true)
+    setDetailPopupOpen(false)
+  }, [])
+
+  const handleDetailPopupOpenChange = useCallback((open: boolean) => {
+    setDetailPopupOpen(open)
+    if (open) setFocused(false)
+  }, [])
+
   return (
     <div ref={containerRef} className="relative flex items-center gap-3">
       <SearchInput
         value={inputValue}
         onChange={onInputChange}
         onSearch={handleSearch}
-        onFocus={() => {
-          setFocused(true)
-          setDetailPopupOpen(false)
-        }}
+        onFocus={handleInputFocus}
         hasDropdown={showDropdown}
       />
 
@@ -88,10 +95,7 @@ export default function SearchBar({
         onInputChange={onDetailInputChange}
         onSearch={onDetailSearch}
         isOpen={detailPopupOpen}
-        onOpenChange={(open) => {
-          setDetailPopupOpen(open)
-          if (open) setFocused(false)
-        }}
+        onOpenChange={handleDetailPopupOpenChange}
       />
     </div>
   )

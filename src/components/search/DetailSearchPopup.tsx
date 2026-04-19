@@ -48,6 +48,22 @@ export default function DetailSearchPopup({
     onClose()
   }, [inputValue, target, onSearch, onClose])
 
+  const handleOptionSelect = useCallback(
+    (e: React.MouseEvent<HTMLLIElement>) => {
+      const value = e.currentTarget.dataset.value as SearchTarget
+      onTargetChange(value)
+      setSelectOpen(false)
+    },
+    [onTargetChange]
+  )
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') handleSearch()
+    },
+    [handleSearch]
+  )
+
   const selectedLabel = useMemo(
     () => SEARCH_OPTIONS.find((o) => o.value === target)?.label ?? '제목',
     [target]
@@ -80,10 +96,8 @@ export default function DetailSearchPopup({
               {SEARCH_OPTIONS.map((opt) => (
                 <li
                   key={opt.value}
-                  onClick={() => {
-                    onTargetChange(opt.value)
-                    setSelectOpen(false)
-                  }}
+                  data-value={opt.value}
+                  onClick={handleOptionSelect}
                   className={[
                     'px-[16px] py-[8px] text-[13px] cursor-pointer hover:bg-[#F5F5F5] transition-colors',
                     target === opt.value ? 'text-primary font-medium' : 'text-[#757575]',
@@ -102,11 +116,7 @@ export default function DetailSearchPopup({
             type="text"
             value={inputValue}
             onChange={(e) => onInputChange(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSearch()
-              }
-            }}
+            onKeyDown={handleKeyDown}
             placeholder="검색어 입력"
             className="w-full text-[14px] text-text-primary placeholder:text-[#BDBDBD] pb-[6px] border-b-2 border-primary focus:outline-none"
           />
