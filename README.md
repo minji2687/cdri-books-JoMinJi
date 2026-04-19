@@ -85,33 +85,9 @@ src/
 #### **API 계층 (`/api`)**
 API 관련 코드를 기능별로 나눠서 관리합니다.
 
-```typescript
-api/
-├── config/client.ts      // axios 인스턴스, 공통 헤더 설정
-└── books/                // 도서 검색 관련 API 코드 모음
-    ├── service.ts        // API 호출 함수
-    ├── hooks.ts          // useQuery 훅
-    └── types.ts          // 요청/응답 타입 정의
-```
-
-**이렇게 나눈 이유:**
 - API 설정(`config`)과 실제 호출 로직(`books`)을 분리해서 수정 범위를 좁힘
 - 도서 관련 코드가 한 폴더에 모여 있어서 어디를 고쳐야 할지 바로 찾을 수 있음
 - 나중에 다른 API가 생기면 `api/[이름]/` 폴더를 똑같은 구조로 추가하면 됨
-
-**예시:**
-```typescript
-// service.ts - 순수 API 호출
-export const searchBooks = (params: SearchBooksParams) => 
-  apiClient.get<KakaoBookResponse>('/v3/search/book', { params })
-
-// hooks.ts - React Query 통합
-export const useSearchBooks = (params: SearchBooksParams) =>
-  useQuery({
-    queryKey: ['books', 'search', params],
-    queryFn: () => searchBooks(params),
-  })
-```
 
 #### **컴포넌트 계층 (`/components`)**
 기능과 도메인에 따라 4개 계층으로 분리된 구조입니다.
@@ -172,10 +148,6 @@ export default function BookCard({ book }: BookCardProps) {
   <DetailSearchButton /> // 상세 검색
 </SearchBar>
 ```
-
-**재사용성과 테스트 용이성이 높아집니다:**
-- `SearchInput`만 단독으로 다른 페이지에서 사용 가능
-- 각 컴포넌트를 독립적으로 테스트 가능
 
 
 ## 🛠️ 설치 및 실행
@@ -293,10 +265,6 @@ function SearchPage() {
 - 부모에서 자식 상태를 자유롭게 초기화하거나 바꿀 수 있음
 - 버그가 생겼을 때 상태 흐름을 따라가기가 훨씬 편함
 
-**구현 파일:**
-- `src/components/search/DetailSearchPopup.tsx` (제어 컴포넌트)
-- `src/components/search/DetailSearchButton.tsx` (props 전달)
-- `src/routes/search.tsx` (상태 관리 주체)
 
 ### 2. **React 성능 최적화**
 
@@ -410,64 +378,3 @@ const { data, isLoading, isError } = useSearchBooks({
 - 중복 요청 자동 제거 (동일한 queryKey)
 - 백그라운드 데이터 갱신
 - 로딩/에러 상태를 컴포넌트에서 선언적으로 처리
-
-## 🔍 코드 예시
-
-### API 호출 (React Query)
-
-```typescript
-import { useSearchBooks } from '@/api/books/hooks'
-
-function SearchPage() {
-  const { data, isLoading, isError } = useSearchBooks({
-    query: '리액트',
-    target: 'title',
-    size: 10,
-  })
-
-  const books = data?.documents ?? []
-  const totalCount = data?.meta.total_count ?? 0
-
-  return <div>{/* UI */}</div>
-}
-```
-
-### 재사용 가능한 컴포넌트
-
-```typescript
-import Button from '@/components/ui/Button'
-import Input from '@/components/ui/Input'
-
-function Example() {
-  return (
-    <>
-      <Button variant="primary" size="md">구매하기</Button>
-      <Button variant="outline" size="sm">상세보기</Button>
-      <Input 
-        value={value} 
-        onChange={setValue}
-        onEnter={handleSubmit}
-        variant="underline"
-      />
-    </>
-  )
-}
-```
-
-### 찜하기 상태 관리 (Zustand)
-
-```typescript
-import { useFavoriteStore } from '@/store/favoriteStore'
-
-function BookCard({ book }) {
-  const { isFavorite, addFavorite, removeFavorite } = useFavoriteStore()
-  const favorited = isFavorite(book.isbn)
-
-  const toggleFavorite = () => {
-    favorited ? removeFavorite(book.isbn) : addFavorite(book)
-  }
-
-  return <button onClick={toggleFavorite}>♥</button>
-}
-```
-
