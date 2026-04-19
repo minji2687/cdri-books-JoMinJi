@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import DetailSearchPopup from './DetailSearchPopup'
 import type { SearchTarget } from './DetailSearchPopup'
 import Button from '../ui/Button'
@@ -9,6 +8,8 @@ interface DetailSearchButtonProps {
   onTargetChange: (target: SearchTarget) => void
   onInputChange: (value: string) => void
   onSearch?: (target: SearchTarget, keyword: string) => void
+  isOpen: boolean
+  onOpenChange: (open: boolean) => void
 }
 
 export default function DetailSearchButton({
@@ -17,15 +18,15 @@ export default function DetailSearchButton({
   onTargetChange,
   onInputChange,
   onSearch,
+  isOpen,
+  onOpenChange,
 }: DetailSearchButtonProps) {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <div className="relative">
       <Button
         variant="outline"
         size="sm"
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => onOpenChange(!isOpen)}
       >
         상세검색
       </Button>
@@ -36,9 +37,9 @@ export default function DetailSearchButton({
           inputValue={inputValue}
           onTargetChange={onTargetChange}
           onInputChange={onInputChange}
-          onClose={() => setIsOpen(false)}
+          onClose={() => onOpenChange(false)}
           onSearch={(target, keyword) => {
-            setIsOpen(false)
+            onOpenChange(false)
             onSearch?.(target, keyword)
           }}
         />

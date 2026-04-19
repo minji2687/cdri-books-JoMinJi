@@ -30,9 +30,10 @@ export default function SearchBar({
   onRemoveHistory,
 }: SearchBarProps) {
   const [focused, setFocused] = useState(false)
+  const [detailPopupOpen, setDetailPopupOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const showDropdown = focused && history.length > 0
+  const showDropdown = focused && history.length > 0 && !detailPopupOpen
 
   const handleClickOutside = useCallback((e: MouseEvent) => {
     if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -65,7 +66,10 @@ export default function SearchBar({
         value={inputValue}
         onChange={onInputChange}
         onSearch={handleSearch}
-        onFocus={() => setFocused(true)}
+        onFocus={() => {
+          setFocused(true)
+          setDetailPopupOpen(false)
+        }}
         hasDropdown={showDropdown}
       />
 
@@ -83,6 +87,11 @@ export default function SearchBar({
         onTargetChange={onDetailTargetChange}
         onInputChange={onDetailInputChange}
         onSearch={onDetailSearch}
+        isOpen={detailPopupOpen}
+        onOpenChange={(open) => {
+          setDetailPopupOpen(open)
+          if (open) setFocused(false)
+        }}
       />
     </div>
   )
