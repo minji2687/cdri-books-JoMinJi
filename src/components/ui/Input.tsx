@@ -46,7 +46,7 @@ export default function Input({
     .join(' ')
 
   const containerClassName = [
-    'flex items-center',
+    'flex items-center flex-1',
     variantStyles[variant],
     icon && 'gap-3',
   ]

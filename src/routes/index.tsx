@@ -50,23 +50,25 @@ function SearchPage() {
   }
 
   return (
-    <main className="px-[120px] pt-[60px]">
-      <h1 className="text-[24px] font-bold leading-[24px] text-text-primary mb-[28px]">
+    <main className="max-w-[1200px] mx-auto px-[120px] pt-[60px]">
+      <h1 className="text-[24px] font-bold leading-[24px] text-text-primary mb-[28px] text-center">
         도서 검색
       </h1>
 
-      <SearchBar
-        inputValue={inputValue}
-        onInputChange={setInputValue}
-        onSearch={handleSearch}
-        detailTarget={detailTarget}
-        detailInputValue={detailInputValue}
-        onDetailTargetChange={setDetailTarget}
-        onDetailInputChange={setDetailInputValue}
-        onDetailSearch={handleDetailSearch}
-        history={history}
-        onRemoveHistory={removeHistory}
-      />
+      <div className="flex justify-center">
+        <SearchBar
+          inputValue={inputValue}
+          onInputChange={setInputValue}
+          onSearch={handleSearch}
+          detailTarget={detailTarget}
+          detailInputValue={detailInputValue}
+          onDetailTargetChange={setDetailTarget}
+          onDetailInputChange={setDetailInputValue}
+          onDetailSearch={handleDetailSearch}
+          history={history}
+          onRemoveHistory={removeHistory}
+        />
+      </div>
 
       {isLoading && (
         <div className="text-center py-[40px] text-[14px] text-text-secondary">

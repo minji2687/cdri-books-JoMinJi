@@ -16,7 +16,7 @@ function FavoritesPage() {
   const paged = favorites.slice(0, PAGE_SIZE)
 
   return (
-    <main className="px-[120px] pt-[60px]">
+    <main className="max-w-[1200px] mx-auto px-[120px] pt-[60px]">
       <h1 className="text-[24px] font-bold leading-[24px] text-text-primary mb-[12px]">
         내가 찜한 책
       </h1>
