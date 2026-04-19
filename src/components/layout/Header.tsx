@@ -1,7 +1,7 @@
 import { Link, useLocation } from '@tanstack/react-router'
 
 const NAV_ITEMS = [
-  { label: '도서 검색', to: '/' },
+  { label: '도서 검색', to: '/search' },
   { label: '내가 찜한 책', to: '/favorites' },
 ]
 
@@ -12,7 +12,7 @@ export default function Header() {
     <header className="w-full bg-white border-b border-gray">
       <div className="relative flex items-center px-[120px] py-[24px]">
         <Link
-          to="/"
+          to="/search"
           className="text-[24px] font-bold leading-[24px] text-text-primary"
         >
           CERTICOS BOOKS
