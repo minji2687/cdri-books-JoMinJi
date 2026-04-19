@@ -53,7 +53,7 @@ export default function BookCardExpanded({
       </div>
 
       <div className="flex flex-col items-end justify-between shrink-0 w-[280px]">
-        <Button variant="secondary" size="sm" onClick={onCollapse} className="!h-[48px] !rounded-[8px] !px-[20px] !py-[13px] !text-[16px] !font-medium !leading-[16px] !tracking-[0] whitespace-nowrap">
+        <Button variant="secondary" size="lg" onClick={onCollapse} className="whitespace-nowrap">
           상세보기 <DetailArrowIcon />
         </Button>
 

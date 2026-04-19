@@ -46,10 +46,10 @@ export default function BookCardCompact({
       </span>
 
       <div className="flex shrink-0 items-center gap-[8px]">
-        <Button variant="primary" size="md" onClick={() => window.open(bookUrl, '_blank')} className="w-[115px] !h-[48px] !rounded-[8px] !px-[20px] !py-[13px] !text-[16px]">
+        <Button variant="primary" size="lg" onClick={() => window.open(bookUrl, '_blank')} className="w-[115px]">
           구매하기
         </Button>
-        <Button variant="secondary" size="md" onClick={onExpand} className="!h-[48px] !rounded-[8px] !px-[20px] !py-[13px] !text-[16px] !font-medium !leading-[16px] !tracking-[0] whitespace-nowrap">
+        <Button variant="secondary" size="lg" onClick={onExpand} className="whitespace-nowrap">
           상세보기 <DetailArrowIcon up={false} />
         </Button>
       </div>

@@ -114,7 +114,7 @@ export default function DetailSearchPopup({
             onChange={(e) => onInputChange(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="검색어 입력"
-            className="w-full text-[14px] text-text-primary placeholder:text-[#BDBDBD] pb-[6px] border-b-2 border-primary focus:outline-none"
+            className="w-full text-[14px] text-text-primary placeholder:text-[#BDBDBD] pb-[6px] border-b-1 border-primary focus:outline-none"
           />
         </div>
       </div>
