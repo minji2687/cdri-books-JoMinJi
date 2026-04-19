@@ -90,7 +90,7 @@ export default function DetailSearchPopup({
 
           {selectOpen && (
             <ul className="absolute left-0 top-[calc(100%+4px)] w-[100px] rounded-[6px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] overflow-hidden z-10 border border-gray-200">
-              {SEARCH_OPTIONS.map((opt) => (
+              {SEARCH_OPTIONS.filter((opt) => opt.value !== target).map((opt) => (
                 <li
                   key={opt.value}
                   data-value={opt.value}
