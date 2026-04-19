@@ -26,6 +26,8 @@ VITE_KAKAO_API_KEY=your_kakao_api_key_here
 npm run dev
 ```
 
+<br />
+
 ## 🚀 기술 스택
 
 ### 핵심
@@ -39,6 +41,7 @@ npm run dev
 - **TanStack Router v1** - 타입 세이프 라우팅
 - **Zustand** - 클라이언트 상태 관리
 
+<br />
 
 ## 📁 프로젝트 구조
 
@@ -143,7 +146,7 @@ export default function BookCard({ book }: BookCardProps) {
 </SearchBar>
 ```
 
-
+<br />
 
 ## 📦 라이브러리 선택 이유
 
