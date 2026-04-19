@@ -19,7 +19,6 @@ export default function BookCardExpanded({
 }: BookCardExpandedProps) {
   return (
     <div className="flex gap-[24px] py-[24px] border-b border-gray">
-      {/* 썸네일 */}
       <div className="relative shrink-0">
         <div className="w-[180px] h-[230px] bg-light-gray rounded-sm overflow-hidden">
           {book.thumbnail ? (
@@ -31,7 +30,6 @@ export default function BookCardExpanded({
         </button>
       </div>
 
-      {/* 중앙 내용 */}
       <div className="flex flex-1 flex-col">
         <div className="flex items-center gap-[8px] mb-[16px]">
           <span className="text-[20px] font-bold text-text-primary leading-[20px]">
@@ -52,7 +50,6 @@ export default function BookCardExpanded({
         )}
       </div>
 
-      {/* 오른쪽 가격/구매 영역 */}
       <div className="flex flex-col items-end justify-between shrink-0 w-[280px]">
         <Button variant="outline" size="sm" onClick={onCollapse}>
           상세보기 <ChevronIcon up />

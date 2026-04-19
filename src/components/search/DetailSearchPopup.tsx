@@ -71,7 +71,6 @@ export default function DetailSearchPopup({
 
   return (
     <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[360px] rounded-[8px] bg-white shadow-lg px-[24px] py-[36px]">
-      {/* 닫기 버튼 */}
       <button
         onClick={onClose}
         className="absolute right-[16px] top-[16px] text-[#BDBDBD] hover:text-text-secondary transition-colors"
@@ -79,9 +78,7 @@ export default function DetailSearchPopup({
         <CloseIcon size={16} />
       </button>
 
-      {/* 검색 조건 + 입력 */}
       <div className="flex items-center gap-[12px] mb-[16px]">
-        {/* 셀렉트 */}
         <div ref={selectRef} className="relative">
           <button
             onClick={() => setSelectOpen((v) => !v)}
@@ -110,7 +107,6 @@ export default function DetailSearchPopup({
           )}
         </div>
 
-        {/* 입력 */}
         <div className="flex-1">
           <input
             type="text"
@@ -123,7 +119,6 @@ export default function DetailSearchPopup({
         </div>
       </div>
 
-      {/* 검색하기 버튼 */}
       <button
         onClick={handleSearch}
         className="w-full h-[44px] bg-primary text-white text-[15px] font-medium rounded-[8px] hover:bg-[#4A90E2] transition-colors"

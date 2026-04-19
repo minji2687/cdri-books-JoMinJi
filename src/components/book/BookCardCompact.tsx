@@ -19,7 +19,6 @@ export default function BookCardCompact({
 }: BookCardCompactProps) {
   return (
     <div className="flex items-center gap-[20px] py-[20px] border-b border-gray">
-      {/* 썸네일 */}
       <div className="relative shrink-0">
         <div className="w-[60px] h-[80px] bg-light-gray rounded-sm overflow-hidden">
           {book.thumbnail ? (
@@ -31,7 +30,6 @@ export default function BookCardCompact({
         </button>
       </div>
 
-      {/* 제목 + 저자 */}
       <div className="flex flex-1 items-center gap-[12px] min-w-0">
         <span className="text-[16px] font-bold text-text-primary leading-[16px] truncate">
           {book.title}
@@ -41,12 +39,10 @@ export default function BookCardCompact({
         </span>
       </div>
 
-      {/* 가격 */}
       <span className="shrink-0 text-[16px] font-bold text-text-primary w-[100px] text-right">
         {price.toLocaleString()}원
       </span>
 
-      {/* 버튼 */}
       <div className="flex shrink-0 items-center gap-[8px]">
         <Button variant="primary" size="md">
           구매하기

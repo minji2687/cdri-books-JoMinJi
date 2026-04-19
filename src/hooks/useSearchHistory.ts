@@ -24,7 +24,6 @@ export function useSearchHistory() {
     if (!trimmed) return
 
     setHistory((prev) => {
-      // 중복 제거 후 맨 앞에 추가
       const filtered = prev.filter((item) => item !== trimmed)
       const next = [trimmed, ...filtered].slice(0, MAX_COUNT)
       saveHistory(next)
