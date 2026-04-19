@@ -7,7 +7,7 @@ interface BookListProps {
 
 export default function BookList({ books }: BookListProps) {
   return (
-    <div className="w-full">
+    <div className="w-full mt-[36px]">
       {books.map((book) => (
         <BookCard key={book.isbn} book={book} />
       ))}

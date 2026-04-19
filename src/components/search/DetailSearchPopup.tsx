@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { ChevronIcon, CloseIcon } from '../ui/icons'
-import Button from '../ui/Button'
-import Input from '../ui/Input'
 
 export type SearchTarget = 'title' | 'person' | 'publisher'
 

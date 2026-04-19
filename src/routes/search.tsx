@@ -51,12 +51,11 @@ function SearchPage() {
 
   return (
     <main className="max-w-[1200px] mx-auto px-[120px] pt-[60px]">
-      <h1 className="text-[24px] font-bold leading-[24px] text-text-primary mb-[28px] text-center">
+      <h1 className="text-[24px] font-bold leading-[24px] text-text-primary mb-[28px]">
         도서 검색
       </h1>
 
-      <div className="flex justify-center">
-        <SearchBar
+      <SearchBar
           inputValue={inputValue}
           onInputChange={setInputValue}
           onSearch={handleSearch}
@@ -68,7 +67,6 @@ function SearchPage() {
           history={history}
           onRemoveHistory={removeHistory}
         />
-      </div>
 
       {isLoading && (
         <div className="text-center py-[40px] text-[14px] text-text-secondary">
@@ -84,7 +82,7 @@ function SearchPage() {
 
       {searchKeyword && !isLoading && !isError && (
         <>
-          <p className="mt-[20px] mb-[8px] text-[14px] text-text-secondary">
+          <p className="mt-[20px] mb-[36px] text-[14px] text-text-secondary">
             도서 검색 결과&nbsp;&nbsp;총{' '}
             <span className="text-primary font-medium">{totalCount}</span>건
           </p>

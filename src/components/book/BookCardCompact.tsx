@@ -27,7 +27,7 @@ export default function BookCardCompact({
             <img src={book.thumbnail} alt={book.title} className="w-full h-full object-cover" />
           ) : null}
         </div>
-        <button onClick={onToggleFavorite} className="absolute top-1 right-1">
+        <button onClick={onToggleFavorite} className="absolute top-0.5 right-0.5">
           <HeartIcon filled={favorited} />
         </button>
       </div>
